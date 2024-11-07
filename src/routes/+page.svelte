@@ -1,10 +1,19 @@
 <script lang='ts'>
     import { onMount } from "svelte";
-    import { getWeather } from "../lib/components/base/weather";
+    import { getHourlyWeather, getWeather } from "../lib/components/base/weather";
 
     onMount(() => {
-
+        
     })    
+
+    function handleClick() {
+        // @ts-ignore
+        const form = document.forms["weatherForm"] as HTMLFormElement;
+        const weatherDisplay = document.getElementById("weatherDisplay") as HTMLParagraphElement;
+        const forecastDisplay = document.getElementById("forecastDisplay") as HTMLParagraphElement;
+        getWeather(form, weatherDisplay);
+        getHourlyWeather(form, forecastDisplay);
+    }
 
 </script>
 
@@ -15,7 +24,12 @@
         <input type="text" id="city" name="city"><br>
     </form> 
     <br>
-    <button on:click={getWeather}>Refresh Weather</button>
+    <button on:click={handleClick}>Refresh Weather</button>
     <br>
     <p id="weatherDisplay">Loading weather...</p>
+    <p id="forecastDisplay"></p>
 </div>
+
+<style>
+
+</style>

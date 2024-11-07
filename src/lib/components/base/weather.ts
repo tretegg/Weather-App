@@ -1,14 +1,10 @@
 const apiKey = 'e731687e132c408da2e162923242309';
 
-let city = document.forms["weatherForm"]["city"].value;
-
-// WeatherAPI URL with latitude and longitude
-let apiURL = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}&aqi=no`;
-
 // Function to fetch weather data
-export async function getWeather() {
-    let city = document.forms["weatherForm"]["city"].value;
+export async function getWeather(form: HTMLFormElement, weatherDisplay: HTMLParagraphElement) {
+    let city = form["city"].value;
     let apiURL = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}&aqi=no`;
+    console.log(apiURL);
     try {
         const response = await fetch(apiURL);
         const data = await response.json();
@@ -20,17 +16,47 @@ export async function getWeather() {
             const humidity = data.current.humidity; // Humidity
 
             // Display the weather data
-            document.getElementById('weatherDisplay').textContent =
-                `Temperature: ${temperature}°C, ${description}, Humidity: ${humidity}%`;
+            weatherDisplay.innerHTML =
+                `Temperature: ${temperature}°C<br>  
+                ${description}<br> 
+                Humidity: ${humidity}%`;
         } else {
             // Handle errors from the API
-            document.getElementById('weatherDisplay').textContent = `Error: ${data.error.message}`;
+            weatherDisplay.innerHTML = `Error: ${data.error.message}`;
         }
     } catch (error) {
         // Handle network or fetch errors
-        document.getElementById('weatherDisplay').textContent = `Error: Could not retrieve weather data.`;
+        weatherDisplay.innerHTML = `Error: Could not retrieve weather data.`;
     }
 }
 
-// Fetch the weather on page load
-getWeather();
+export async function getHourlyWeather(form: HTMLFormElement, forecastDisplay: HTMLParagraphElement) {
+    let city = form["city"].value;
+    let apiURL = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${city}&aqi=no`;
+    console.log(apiURL);
+    try {
+        const response = await fetch(apiURL);
+        const data = await response.json();
+
+        if (response.ok) {
+            // Extract weather information
+            const temperature: number[] = [];
+            for (let i = 0; i < 5; i++) {
+                temperature.push(data.forecast.forecastday[0].hour[i].temp_c);
+            }
+            const temperatureString = temperature[0] + '°C, ' + temperature[1] + '°C, ' + 
+            temperature[2] + '°C, ' + temperature[3] + '°C, ' + temperature[4] + '°C';
+
+            forecastDisplay.innerHTML = `
+            5 Hour Forecast: ${temperatureString}`;
+            
+       
+        } else {
+            // Handle errors from the API
+            forecastDisplay.innerHTML = `Error: ${data.message}`;
+        }
+    } catch (error) {
+        // Handle network or fetch errors
+        forecastDisplay.innerHTML = `Error: Could not retrieve weather data.`;
+    }
+}
