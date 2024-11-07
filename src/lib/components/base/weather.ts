@@ -1,7 +1,10 @@
+// import { env } from "$env/dynamic/private";
+
 const apiKey = 'e731687e132c408da2e162923242309';
+// const apiKey = env.WEATHER_API_KEY
 
 // Function to fetch weather data
-export async function getWeather(form: HTMLFormElement, weatherDisplay: HTMLParagraphElement) {
+export async function getWeather(form: HTMLFormElement, weatherDisplay: HTMLParagraphElement, fetch: any) {
     let city = form["city"].value;
     let apiURL = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}&aqi=no`;
     console.log(apiURL);
