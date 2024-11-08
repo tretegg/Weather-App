@@ -1,35 +1,30 @@
-// import { env } from "$env/dynamic/private";
+import { env } from "$env/dynamic/private";
+import type CurrentWeather from "$lib/types/weather";
 
-const apiKey = 'e731687e132c408da2e162923242309';
-// const apiKey = env.WEATHER_API_KEY
+const apiKey = env.WEATHER_API_KEY
+
+
 
 // Function to fetch weather data
-export async function getWeather(form: HTMLFormElement, weatherDisplay: HTMLParagraphElement, fetch: any) {
-    let city = form["city"].value;
+export async function getWeather(city: string, fetch: any) {
     let apiURL = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}&aqi=no`;
     console.log(apiURL);
     try {
         const response = await fetch(apiURL);
-        const data = await response.json();
+        const data = (await response.json()) as CurrentWeather;
 
-        if (response.ok) {
-            // Extract weather information
-            const temperature = data.current.temp_c;  // Celsius temperature
-            const description = data.current.condition.text; // Weather description
-            const humidity = data.current.humidity; // Humidity
-
-            // Display the weather data
-            weatherDisplay.innerHTML =
-                `Temperature: ${temperature}°C<br>  
-                ${description}<br> 
-                Humidity: ${humidity}%`;
-        } else {
+        if (!response.ok) {
+            console.error("API Error:", data)
             // Handle errors from the API
-            weatherDisplay.innerHTML = `Error: ${data.error.message}`;
+            return
         }
+
+        return data
+
+        
     } catch (error) {
         // Handle network or fetch errors
-        weatherDisplay.innerHTML = `Error: Could not retrieve weather data.`;
+        console.log("Netork Error:", error)
     }
 }
 

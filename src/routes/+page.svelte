@@ -1,29 +1,21 @@
 <script lang='ts'>
     import { onMount } from "svelte";
-    import { getHourlyWeather, getWeather } from "../lib/components/base/weather";
+    import { getNasaData } from "$lib/components/base/nasa";
+    import type { NasaApodResponse } from "$lib/types/nasa";
+    import Weather from "$lib/components/base/weather/weather.svelte";
 
-    onMount(() => {
-        
+    onMount(async () => {
+        let nasa = await getNasaData() as NasaApodResponse;
+        if (nasa.hdurl) {
+           nasaImage.src = nasa.hdurl; 
+        }
+        nasaImage.alt = nasa.title;
+        nasaExplanation.innerHTML = nasa.explanation;
     })    
 
-    let loading: boolean = false
 
-    async function handleClick() {
-        loading = true
-
-        let response = await fetch("/api/weather", {
-            headers: {
-                "X-city": form["city"].value as string
-            }
-        }) 
-
-        //getWeather(form, weatherDisplay);
-        //getHourlyWeather(form, forecastDisplay);
-    }
-
-    let form: HTMLFormElement
-    let weatherDisplay: HTMLParagraphElement
-    let forecastDisplay: HTMLParagraphElement
+    let nasaImage: HTMLImageElement
+    let nasaExplanation: HTMLParagraphElement
 
 </script>
 
@@ -35,31 +27,16 @@
 </nav>
 
 <div class="weather px-4 pt-3">
-    <form bind:this={form} name="weatherForm" class="flex">
-        <label class="pr-2" for="city">City:</label><br>
-        <input class="text-black px-1 !outline-none" type="text" id="city" name="city" placeholder="e.g London"><br>
-    </form> 
+    <Weather/>
+</div>
 
-    <br>
-
-    <button disabled={loading} class:loading={loading} class="px-2 py-1 border border-white transitions duration-300 hover:scale-110 active:scale-105" on:click={handleClick}>Refresh Weather</button>
-
-    <br>
-    
-    <p bind:this={weatherDisplay} class:loading-bar={loading} class='mt-3 text-lg font-mono' id="weatherDisplay">{loading ? "Loading Weather..." : "Enter City."}</p>
-    <p bind:this={forecastDisplay} class="font-mono" id="forecastDisplay"></p>
+<div class="nasa-image px-4 pt-3">
+    <p bind:this={nasaExplanation} class="font-mono"></p>
+    <img bind:this={nasaImage} alt="" width="100%" height="100%">
 </div>
 
 <style lang="postcss">
-    
-.loading {
-    @apply hover:!scale-100 active:!scale-100 text-gray-400 border-gray-400;
-}
 
-.loading-bar::after {
-    content: "";
-    @apply animate-spin inline-block rounded-full border-4 bg-transparent w-5 h-5
-}
 
 .navbar {
     position: sticky;
