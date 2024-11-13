@@ -19,20 +19,23 @@
 
 </script>
 
-<nav class="navbar">
+<nav class="navbar h-[5%]">
     <ul class="nav-links">
-        <li><a href="#home">Weather</a></li>
-        <li><a href="#skibidi">Other thign</a></li>
+        <li><a href="./">Home</a></li>
+        <li><a href="./news">News</a></li>
     </ul>
 </nav>
 
-<div class="weather px-4 pt-3">
-    <Weather/>
-</div>
+<div class="flex h-[95%]">
+    <div class="weather h-full w-[50%] border-r">
+        <Weather/>
+    </div>
 
-<div class="nasa-image px-4 pt-3">
-    <p bind:this={nasaExplanation} class="font-mono"></p>
-    <img bind:this={nasaImage} alt="" width="100%" height="100%">
+    <div class="nasa-image px-4 pt-3 h-full w-[50%] flex flex-col items-center justify-center">
+        <h2 class="text-left text-xl font-mono w-full">NASA APOD</h2>
+        <p bind:this={nasaExplanation} class="font-mono text-sm"></p>
+        <img bind:this={nasaImage} alt="An image taken from a nasa apod" class="mt-2 border border-white" width="100%" height="60%">
+    </div>
 </div>
 
 <style lang="postcss">

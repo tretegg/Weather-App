@@ -7,8 +7,10 @@ const apiKey = env.WEATHER_API_KEY
 
 // Function to fetch weather data
 export async function getWeather(city: string, fetch: any) {
-    let apiURL = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}&aqi=no`;
-    console.log(apiURL);
+    // the api key has single quotes around it so i just get rid of them here
+    let key = apiKey.split("'")[1]
+
+    let apiURL = `https://api.weatherapi.com/v1/current.json?key=${key}&q=${city}&aqi=no`;
     try {
         const response = await fetch(apiURL);
         const data = (await response.json()) as CurrentWeather;
@@ -24,7 +26,7 @@ export async function getWeather(city: string, fetch: any) {
         
     } catch (error) {
         // Handle network or fetch errors
-        console.log("Netork Error:", error)
+        console.error("Netork Error:", error)
     }
 }
 
