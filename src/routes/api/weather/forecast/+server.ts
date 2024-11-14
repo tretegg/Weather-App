@@ -1,9 +1,7 @@
-import { getWeather } from "$lib/components/base/weather/weather";
+import { getHourlyForecast } from "$lib/components/base/weather/weather";
 import { json, error } from "@sveltejs/kit";
 
 export async function GET({ request, fetch }) {
-
-    // TODO cache
 
     const city = request.headers.get("X-city")
 
@@ -11,7 +9,7 @@ export async function GET({ request, fetch }) {
         return error(400, "Missing city")
     }
 
-    const weather = await getWeather(city, fetch)
+    const weather = await getHourlyForecast(city, fetch)
 
     return json(weather)
 }

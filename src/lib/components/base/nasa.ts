@@ -1,16 +1,27 @@
+import { NASA_KEY } from "$env/static/private";
 import type { NasaApodResponse } from "$lib/types/nasa";
 
-const api_key = 'o0HGa2FNDAY9pdIy4mCkWnrVi5RhpQuADxebgzw1';
+let storage: NasaApodResponse
+const DEBOUNCE = (1000 * 60 * 30) // 30 minutes
+let lastRequest = 0
 
-export async function getNasaData() {
-    let apiURL = `https://api.nasa.gov/planetary/apod?api_key=${api_key}`;
+export async function getNasaData(fetch: any): Promise<NasaApodResponse | undefined> {
+    if (Date.now() - lastRequest < DEBOUNCE) {
+        return storage
+    }
+
+    let apiURL = `https://api.nasa.gov/planetary/apod?api_key=${NASA_KEY}`;
     console.log(apiURL);
     try {
         const response = await fetch(apiURL);
         const data = await response.json() as NasaApodResponse;
+        
+        lastRequest = Date.now()
+        storage = data
+
         return data;
     } catch (error) {
-        console.log(error);
-        return ''; // or some other default value
+        console.error(error);
+        return; // or some other default value
     }
 }

@@ -1,14 +1,14 @@
-const apiKey = '19b2cfae55ba4defa57d90d55479fc2a';
+const apiKey = 'UdLkle7VEsux3qXcM4ws33IAMYvpFzror50V379J';
 
 
 
 // Function to fetch weather data
-export async function getRecentNews(q: string) {
-    let apiURL = `https://newsapi.org/v2/everything?q=${q}&language=en&from=2024-10-13&sortBy=publishedAt&apiKey=${apiKey}`;
+export async function getRecentNews() {
+    let apiURL = `https://api.thenewsapi.com/v1/news/top?api_token=${apiKey}&limit=3&locale=us,ca`;
     console.log(apiURL);
     try {
         const response = await fetch(apiURL);
-        const data = (await response.json()) as NewsApiResponse;
+        const data = (await response.json()) as TheNewsAPIResponse;
         console.log(data);
         console.log(apiURL);
 
@@ -23,6 +23,6 @@ export async function getRecentNews(q: string) {
         
     } catch (error) {
         // Handle network or fetch errors
-        console.log("Netork Error:", error)
+        console.log("Network Error:", error)
     }
 }

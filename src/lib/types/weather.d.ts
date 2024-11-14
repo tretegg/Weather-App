@@ -143,6 +143,13 @@ export interface Condition {
     code: number;
 }
 
+export interface WeatherApiError {
+    error: {
+        code: number,
+        message: string
+    }
+}
+
 // export interface CurrentWeather {
 //     last_updated_epoch: number;
 //     last_updated: string;

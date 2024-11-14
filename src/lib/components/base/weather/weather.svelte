@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { WeatherAPIResponse } from "$lib/types/weather";
+    import type { ForecastDay, WeatherApiError, WeatherAPIResponse } from "$lib/types/weather";
     
     let loading: boolean = false
     let firstLoad: boolean = false
@@ -9,6 +9,11 @@
     let forecastDisplay: HTMLParagraphElement
     
     let response: WeatherAPIResponse
+    let forecast: ForecastDay
+
+    let errorData: WeatherApiError["error"]
+
+    let error: boolean = false
 
     async function handleClick() {
         loading = true
@@ -19,8 +24,27 @@
             }
         })).json() as WeatherAPIResponse)
 
+        // @ts-ignore
+        if (response.error) {
+            error = true
+            // @ts-ignore
+            errorData = response.error
+        }
+
+        //forecast = (await (await fetch("/api/weather/forecast", {
+        //    headers: {
+        //        "X-city": form["city"].value as string
+        //    }
+        //})).json() as ForecastDay)
         
-        console.log(response)
+        // @ts-ignore
+        //if (forecast.error) {
+        //    error = true
+        //    // @ts-ignore
+        //    errorData = forecast.error
+        //}
+
+        console.log("forecast:", forecast)
 
         loading = false
         firstLoad = true
@@ -48,29 +72,41 @@
 </div>
 
 <div class='pl-2 pt-1 h-[92%]'>
-    {#if loading || !firstLoad}
+{#if loading || !firstLoad}
     <p bind:this={weatherDisplay} class:loading-bar={loading} class='text-lg font-mono' id="weatherDisplay">{loading ? "Loading Weather..." : "Enter City."}</p>
 {:else}
-    <div>
-        <div>
-            <div class="flex items-start">
-                <div class="flex flex-col">
-                    <h1 class="text-2xl">
-                        Weather for <strong>{response.location.name}</strong>
-                    </h1>
-                                
-                    <p class="text-sm text-gray-200">{response.location.country}</p>
-                </div>
-
-                <div class="flex ml-auto items-center justify-center pr-4 space-x-1">
-                    <p class="text-sm">Conditions are </p> <strong class="text-base">{response.current.condition.text}</strong>
-                    <!-- <img class=" w-[25px] h-[25px] aspect-square grayscale-100" src="{response.current.condition.icon}" alt="Wheather Icon"> -->
-                </div>
-
-            </div>
+    {#if error}
+        <div class="w-full h-full flex items-center justify-center">
+            <p class="text-lg font-mono text-red-400">Error: {errorData.message}</p>
         </div>
+    {:else}
+        <div>
+            <div>
+                <div class="flex items-start">
+                    <div class="flex flex-col">
+                        <h1 class="text-2xl">
+                            Weather for <strong>{response.location.name}</strong>
+                        </h1>
 
-    </div>
+                        <p class="text-sm text-gray-200">{response.location.country}</p>
+                    </div>
+
+                    <div class="flex flex-col ml-auto pr-4">
+                        <div class="flex items-center justify-end space-x-1 text-right">
+                            <p class="text-sm">Conditions are <strong class="text-base">{response.current.condition.text}</strong>  </p>
+                            <!-- <img class=" w-[25px] h-[25px] aspect-square grayscale-100" src="{response.current.condition.icon}" alt="Wheather Icon"> -->
+                        </div>
+
+                        <div class="flex items-center justify-center space-x-1 text-xs">
+                            <p class="">@ <strong class="text-sm">{response.location.localtime}</strong> local time</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    {/if}
 {/if}
 </div>
 
@@ -82,6 +118,6 @@
 
     .loading-bar::after {
         content: "";
-        @apply animate-spin inline-block rounded-full border-4 bg-transparent ml-2 border-gray-600 border-t-white w-[15px] h-[15px]
+        @apply animate-spin inline-block rounded-full border-4 bg-transparent ml-2 border-gray-600 border-t-white w-[15px] h-[15px] relative top-[3px]
     }
 </style>
