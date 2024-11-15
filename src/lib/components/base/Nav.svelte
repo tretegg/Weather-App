@@ -6,6 +6,7 @@
     <ul class="nav-links">
         <li><a href="/">Home</a></li>
         <li><a href="/news">News</a></li>
+        <li><a href="/movies">Movies</a></li>
     </ul>
 </nav>
 

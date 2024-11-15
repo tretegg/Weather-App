@@ -6,9 +6,9 @@ const apiKey = env.WEATHER_API_KEY
 // Function to fetch weather data
 export async function getWeather(city: string, fetch: any): Promise<WeatherAPIResponse | WeatherApiError> {
     // the api key has single quotes around it so i just get rid of them here
-    let key = apiKey.split("'")[1]
 
-    const apiURL = `https://api.weatherapi.com/v1/current.json?key=${key}&q=${city}&aqi=no`;
+    const apiURL = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}&aqi=no`;
+
     try {
         const response = await fetch(apiURL);
 
@@ -36,12 +36,8 @@ export async function getWeather(city: string, fetch: any): Promise<WeatherAPIRe
 }
 
 export async function getHourlyForecast(city: string, fetch: any): Promise<ForecastDay | undefined> {
-    let key = apiKey.split("'")[1]
+    let apiURL = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${encodeURI(city)}&days=5&aqi=no`;
 
-
-
-    let apiURL = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${city}&days=1&aqi=no`;
-    
     try {
         const response = await fetch(apiURL);
         const data = await response.json() as ForecastDay;

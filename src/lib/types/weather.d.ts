@@ -150,6 +150,12 @@ export interface WeatherApiError {
     }
 }
 
+export interface WeatherForecastAPIResponse {
+    location: Location;
+    forecast: Forecast;
+    current: CurrentWeather;
+}
+
 // export interface CurrentWeather {
 //     last_updated_epoch: number;
 //     last_updated: string;

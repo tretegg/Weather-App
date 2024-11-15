@@ -10,10 +10,10 @@
 </script>
 
 {#if nasa}
-    <div class="w-full h-full flex flex-col items-center justify-center px-4">
-        <h2 class="w-full text-left font-mono text-xl font-bold">Nasa APOD</h2>
-        <p class="text-left">{nasa.explanation}</p>
-        <img src="{nasa.url}" alt="Nasa APOD of the day.">
+    <div class="w-full h-full flex flex-col items-center justify-center px-4 font-mono ">
+        <h2 class="w-full text-left text-xl font-bold">Nasa APOD</h2>
+        <p class="text-left text-sm">{nasa.explanation}</p>
+        <img class="max-h-[60%] border mt-2" src="{nasa.url}" alt="Nasa APOD of the day.">
     </div>
 {:else}
     <div class="w-full h-full flex items-center justify-center">

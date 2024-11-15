@@ -1,5 +1,7 @@
 <script lang="ts">
-    import type { ForecastDay, WeatherApiError, WeatherAPIResponse } from "$lib/types/weather";
+    import type { ForecastDay, WeatherApiError, WeatherAPIResponse, WeatherForecastAPIResponse } from "$lib/types/weather";
+    import Forecast from "./Forecast.svelte";
+    import Radar from "./Radar.svelte";
     
     let loading: boolean = false
     let firstLoad: boolean = false
@@ -8,41 +10,53 @@
     let weatherDisplay: HTMLParagraphElement
     let forecastDisplay: HTMLParagraphElement
     
-    let response: WeatherAPIResponse
-    let forecast: ForecastDay
+    // let response: WeatherAPIResponse
+    let forecast: WeatherForecastAPIResponse
 
     let errorData: WeatherApiError["error"]
 
     let error: boolean = false
 
+    let currentDay: ForecastDay
+    let currentDate: Date
+
+    $: if (currentDay) {
+        currentDate = new Date(currentDay.date)
+    }
+
+    $: if (forecast) {
+        currentDay = forecast.forecast.forecastday[0]
+    }
+
     async function handleClick() {
         loading = true
+        error = false
 
-        response = (await (await fetch("/api/weather", {
-            headers: {
-                "X-city": form["city"].value as string
-            }
-        })).json() as WeatherAPIResponse)
+        // response = (await (await fetch("/api/weather", {
+        //     headers: {
+        //         "X-city": form["city"].value as string
+        //     }
+        // })).json() as WeatherAPIResponse)
 
-        // @ts-ignore
-        if (response.error) {
-            error = true
-            // @ts-ignore
-            errorData = response.error
-        }
+        // // @ts-ignore
+        // if (response.error) {
+        //     error = true
+        //     // @ts-ignore
+        //     errorData = response.error
+        // }
 
-        //forecast = (await (await fetch("/api/weather/forecast", {
-        //    headers: {
-        //        "X-city": form["city"].value as string
-        //    }
-        //})).json() as ForecastDay)
+        forecast = (await (await fetch("/api/weather/forecast", {
+           headers: {
+               "X-city": form["city"].value as string
+           }
+        })).json() as WeatherForecastAPIResponse)
         
-        // @ts-ignore
-        //if (forecast.error) {
-        //    error = true
-        //    // @ts-ignore
-        //    errorData = forecast.error
-        //}
+        //@ts-ignore
+        if (forecast.error) {
+           error = true
+           // @ts-ignore
+           errorData = forecast.error
+        }
 
         console.log("forecast:", forecast)
 
@@ -53,6 +67,8 @@
         //getWeather(form, weatherDisplay);
         //getHourlyWeather(form, forecastDisplay);
     }
+
+    const DAY_MAP = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 </script>
 
 <svelte:window 
@@ -71,7 +87,7 @@
 
 </div>
 
-<div class='pl-2 pt-1 h-[92%]'>
+<div class='px-2 py-1 h-[92%]'>
 {#if loading || !firstLoad}
     <p bind:this={weatherDisplay} class:loading-bar={loading} class='text-lg font-mono' id="weatherDisplay">{loading ? "Loading Weather..." : "Enter City."}</p>
 {:else}
@@ -80,31 +96,43 @@
             <p class="text-lg font-mono text-red-400">Error: {errorData.message}</p>
         </div>
     {:else}
-        <div>
-            <div>
+        <div class="w-full h-full">
+            <div class="w-full h-[8%]">
                 <div class="flex items-start">
                     <div class="flex flex-col">
                         <h1 class="text-2xl">
-                            Weather for <strong>{response.location.name}</strong>
+                            Weather for <strong>{forecast.location.name}</strong>
                         </h1>
 
-                        <p class="text-sm text-gray-200">{response.location.country}</p>
+                        <p class="text-sm text-gray-200">{forecast.location.country}</p>
                     </div>
 
                     <div class="flex flex-col ml-auto pr-4">
                         <div class="flex items-center justify-end space-x-1 text-right">
-                            <p class="text-sm">Conditions are <strong class="text-base">{response.current.condition.text}</strong>  </p>
+                            <p class="text-sm">Conditions are <strong class="text-base">{forecast.current.condition.text}</strong>  </p>
                             <!-- <img class=" w-[25px] h-[25px] aspect-square grayscale-100" src="{response.current.condition.icon}" alt="Wheather Icon"> -->
                         </div>
 
                         <div class="flex items-center justify-center space-x-1 text-xs">
-                            <p class="">@ <strong class="text-sm">{response.location.localtime}</strong> local time</p>
+                            <p class="">@ <strong class="text-sm">{forecast.location.localtime}</strong> local time.</p>
                         </div>
                     </div>
 
                 </div>
             </div>
 
+            <div class="w-full h-[92%]">
+                <div class="w-full h-[50%] border-t">
+                    <div class="w-full h-[50%] px-2">
+                        <h2 class="text-2xl text-bold">{DAY_MAP[currentDate.getDay()]}</h2>
+                    </div>
+
+                    <div class="w-full h-[50%] border-t flex items-center justify-center">
+                        <Forecast forecast={forecast.forecast} />
+                    </div>
+                </div>
+                <Radar longitude={forecast.location.lon} latitude={forecast.location.lat}/>
+            </div>
         </div>
     {/if}
 {/if}

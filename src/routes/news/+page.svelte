@@ -5,8 +5,8 @@
     let articles: TheNewsAPIArticle[] = [];
 
     async function getNews() {
-        const news = await getRecentNews() as TheNewsAPIResponse;
-        articles = news.data.slice(0, 3); // Get the top three articles
+        // const news = await getRecentNews() as TheNewsAPIResponse;
+        // articles = news.data.slice(0, 3); // Get the top three articles
     }
 
     onMount(async () => {

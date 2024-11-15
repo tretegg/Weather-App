@@ -5,7 +5,5 @@ export async function GET({ request, fetch }) {
 
     const nasa = await getNasaData(fetch)
 
-    console.log(nasa)
-
     return json(nasa)
 }
