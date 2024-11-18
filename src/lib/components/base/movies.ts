@@ -1,5 +1,5 @@
 import { env } from "$env/dynamic/private";
-import type { OMDBSearchResponse, OMDBSearchResult } from "$lib/types/movies";
+import type { OMDBMovieDetail, OMDBSearchResponse, OMDBSearchResult } from "$lib/types/movies";
 
 const apiKey = env.OMDB_KEY;
 

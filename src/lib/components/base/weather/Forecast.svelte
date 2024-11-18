@@ -7,7 +7,7 @@
     $: days = forecast.forecastday
 </script>
 
-<div class="flex ">
+<div class="flex space-x-2">
     {#each days as day}
         <Cell {day} />
     {/each}

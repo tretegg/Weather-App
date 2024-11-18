@@ -6,7 +6,9 @@ export async function GET({ request, fetch }) {
     const city = request.headers.get("X-city")
 
     if (!city) {
-        return error(400, "Missing city")
+        return error(400, { error: {
+            message: "No city provided."
+        } })
     }
 
     const weather = await getHourlyForecast(city, fetch)

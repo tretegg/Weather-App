@@ -7,6 +7,7 @@
 
     let firstLoad: boolean = false
     let loading: boolean = false
+    let genresList: string[] = []
 
     async function handleClick() {
         loading = true
@@ -21,6 +22,7 @@
 
         loading = false
         firstLoad = true
+        genresList = data.Genre.split(', ').map(genre => genre.trim());
     }
 
     let movieTitle: HTMLInputElement
@@ -47,14 +49,22 @@
 <div class='px-2 py-1 h-[92%]'>
     {#if loading || !firstLoad}
         <p class:loading-bar={loading} >{loading ? "Loading..." : "Enter Movie Title."}</p>
-    {:else}
-        <p><strong>{data.Title}</strong></p>
-        <p>Release date: {data.Released}</p>
-        <p>Age rating: {data.Rated}</p>
-        <p>Genres: {data.Genre}</p>
-        <p>Plot: {data.Plot}</p>
-        <p>Imdb rating: {data.imdbRating}</p>
-        <img src="{data.Poster}" alt="{data.Title} Poster" class="border-2">
+    {:else if data.Response === "True"}
+        <p class="text-4xl font-bold mb-1">{data.Title}</p>
+        <p class="text-gray-300 mb-1">{data.Released} &middot; {data.Rated} &middot; {data.Runtime}</p>
+        <img src="{data.Poster}" alt="{data.Title} Poster" class="border-2 rounded-lg border-gray-600 mb-2">
+        <div class="flex flex-wrap gap-x-2 mb-2">
+            {#each genresList as genre}
+                <p class="border-2 rounded-full px-2 border-gray-600">{genre}</p>
+            {/each}
+        </div>
+        <p>{data.Plot}</p>
+        <div class="flex items-center"> 
+            <img alt="Star icon" src="/imgs/star.png" class="w-[35px] h-[35px]">
+            <p>{data.imdbRating}<span class="text-gray-400">/10</span></p>
+        </div>
+    {:else if data.Response === "False"}
+        <p>{data.Error}</p>
     {/if}
 </div>
 
