@@ -29,9 +29,9 @@
     {#if loading || !firstLoad}
         <p class:loading-bar={loading} >{loading ? "Loading..." : ""}</p>
     {:else}
-        <div class="flex items-center"> 
-            <img alt="Chuck Norris icon" src={data.icon_url} class="w-[35px] h-[35px] mr-1">
-            <p>{data.value}<span class="text-gray-400"></span></p>
+        <div class="flex items-center border-2 rounded-lg pr-2 mt-2 hover:bg-[#141414]"> 
+            <img alt="Chuck Norris icon" src={data.icon_url} class="w-[50px] h-[50px] mr-1">
+            <p>"{data.value}"<span class="text-gray-400"></span></p>
         </div>
     {/if}
 </div>
