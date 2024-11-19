@@ -1,6 +1,7 @@
 <script lang='ts'>
     import type { OMDBMovieDetail, OMDBSearchResponse, OMDBSearchResult } from "$lib/types/movies";
     import { onMount } from "svelte";
+    import { fade, fly } from "svelte/transition";
 
     let form: HTMLFormElement
     let data: OMDBMovieDetail
@@ -46,22 +47,25 @@
     </div>
  
 </div>
+
 <div class='px-2 py-1 h-[92%]'>
     {#if loading || !firstLoad}
-        <p class:loading-bar={loading} >{loading ? "Loading..." : "Enter Movie Title."}</p>
+        <p class:loading-bar={loading} in:fade={{duration: 300}}>{loading ? "Loading..." : "Enter Movie Title."}</p>
     {:else if data.Response === "True"}
-        <p class="text-4xl font-bold mb-1">{data.Title}</p>
-        <p class="text-gray-300 mb-1">{data.Released} &middot; {data.Rated} &middot; {data.Runtime}</p>
-        <img src="{data.Poster}" alt="{data.Title} Poster" class="border-2 rounded-lg border-gray-600 mb-2">
-        <div class="flex flex-wrap gap-x-2 mb-2">
-            {#each genresList as genre}
-                <p class="border-2 rounded-full px-2 border-gray-600">{genre}</p>
-            {/each}
-        </div>
-        <p>{data.Plot}</p>
-        <div class="flex items-center"> 
-            <img alt="Star icon" src="/imgs/star.png" class="w-[35px] h-[35px]">
-            <p>{data.imdbRating}<span class="text-gray-400">/10</span></p>
+        <div in:fade={{duration: 300}}>
+            <p class="text-4xl font-bold mb-1">{data.Title}</p>
+            <p class="text-gray-300 mb-1">{data.Released} &middot; {data.Rated} &middot; {data.Runtime}</p>
+            <img src="{data.Poster}" alt="{data.Title} Poster" class="border-2 rounded-lg border-gray-600 mb-2">
+            <div class="flex flex-wrap gap-x-2 mb-2">
+                {#each genresList as genre}
+                    <p class="border-2 rounded-full px-2 border-gray-600">{genre}</p>
+                {/each}
+            </div>
+            <p>{data.Plot}</p>
+            <div class="flex items-center"> 
+                <img alt="Star icon" src="/imgs/star.png" class="w-[35px] h-[35px]">
+                <p>{data.imdbRating}<span class="text-gray-400">/10</span></p>
+            </div>
         </div>
     {:else if data.Response === "False"}
         <p>{data.Error}</p>
