@@ -68,7 +68,7 @@
             </div>
         </div>
     {:else if data.Response === "False"}
-        <p>{data.Error}</p>
+        <p in:fade={{duration: 300}}>{data.Error}</p>
     {/if}
 </div>
 

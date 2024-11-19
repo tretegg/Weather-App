@@ -34,8 +34,7 @@
 />
 
 <div class="w-full h-[8%] flex items-center justify-center space-x-8">
-    <button 
-        class="px-2 py-1 border transition duration-300 hover:scale-110 active:scale-105 loading:scale-100 loading:text-gray-400 loading:border-gray-400"
+    <button class="px-2 py-1 mt-1 border transition duration-300 hover:scale-110 active:scale-105 loading:scale-100 loading:text-gray-400 loading:border-gray-400"
         on:click={handleClick}>
         Get a Fact
     </button>
@@ -43,16 +42,12 @@
 
 <div class="px-2 py-1 h-[92%] space-y-2">
     {#each savedJokes as joke (joke)}
-        <div 
-            class="flex items-center border-2 rounded-lg border-gray-600 p-2 shadow"
+        <div class="flex items-center border-2 rounded-lg border-gray-600 p-2 shadow"
             animate:flip={{ duration: 200 }}
-            in:fly={{ y: -50, duration: 300 }}
-        >
-            <img 
-                alt="Chuck Norris icon" 
+            in:fly={{ y: -50, duration: 300 }}>
+            <img alt="Chuck Norris icon" 
                 src="{data?.icon_url || ''}" 
-                class="w-[35px] h-[35px] mr-2 rounded-full"
-            >
+                class="w-[35px] h-[35px] mr-2 rounded-full">
             <p>{joke}<span class="text-gray-400"></span></p>
         </div>
     {/each}
