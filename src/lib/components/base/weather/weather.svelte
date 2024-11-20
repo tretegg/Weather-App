@@ -70,7 +70,19 @@
         //getHourlyWeather(form, forecastDisplay);
     }
 
+    function dayChange(e: CustomEvent<ForecastDay>) {
+        currentDay = e.detail!
+    }
+
     const DAY_MAP = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+
+    const CONDITION_MAP = {
+        1000: "Sunny",
+        1003: "PartlyCloudy",
+        1006: "Cloudy",
+        1009: "Overcast",
+
+    }
 </script>
 
 <svelte:window 
@@ -133,8 +145,11 @@
                         <DayDisplay day={currentDay} dayName={DAY_MAP[currentDate.getDay()]}/>
                     </div>
 
-                    <div class="w-full h-[50%] border-t flex items-center justify-center">
-                        <Forecast forecast={forecast.forecast} />
+                    <div class="w-full h-[50%] border-t flex relative items-center justify-center">
+                        <div class="w-full h-[15%] absolute top-0">
+                            <p class="w-full text-left text-sm text-gray-300 pl-1">Click to see forecast for the day.</p>
+                        </div>
+                        <Forecast on:dayChange={dayChange} forecast={forecast.forecast} />
                     </div>
                 </div>
                 <Radar longitude={forecast.location.lon} latitude={forecast.location.lat}/>

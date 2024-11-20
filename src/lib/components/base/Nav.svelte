@@ -7,7 +7,8 @@
         "Home": "/",
         "News": "/news",
         "Movies": "/movies",
-        "Norris": "/norris"
+        "Norris": "/norris",
+        "To-do List": "/todo"
     }
 
     let currentPage = ""

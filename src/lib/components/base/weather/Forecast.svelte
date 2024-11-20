@@ -9,6 +9,6 @@
 
 <div class="flex space-x-2">
     {#each days as day}
-        <Cell {day} />
+        <Cell on:dayChange {day} />
     {/each}
 </div>

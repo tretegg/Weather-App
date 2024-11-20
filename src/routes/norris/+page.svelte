@@ -34,7 +34,7 @@
 />
 
 <div class="w-full h-[8%] flex items-center justify-center space-x-8">
-    <button class="px-2 py-1 mt-1 border transition duration-300 hover:scale-110 active:scale-105 loading:scale-100 loading:text-gray-400 loading:border-gray-400"
+    <button class:isHandlingClick class="px-2 py-1 mt-1 border transition duration-300 hover:scale-110 active:scale-105 loading:scale-100 loading:text-gray-400 loading:border-gray-400"
         on:click={handleClick}>
         Get a Fact
     </button>
@@ -54,5 +54,7 @@
 </div>
 
 <style lang="postcss">
-    
+    .isHandlingClick {
+        @apply scale-95 border-gray-400 text-gray-400
+    }    
 </style>
