@@ -121,9 +121,12 @@
 
 <div class="w-full max-w-md mx-auto p-4 ">
     {#each $storedTasks as task (task.id)}
-    <div class="task-container w-full border border-gray-300 rounded-md my-2 p-2 transition-all duration-300 hover:scale-105 relative shadow-lg hover:shadow-white"
-        in:fly={{ y: -50, duration: 300 }} 
-        animate:flip={{ duration: 300 }}>
+    <div
+        class="task-container w-full border border-gray-300 rounded-md my-2 p-2 transition-all duration-300 hover:scale-105 relative shadow-lg hover:[box-shadow:0_0_20px_0px_rgba(255,255,255,0.5)]"
+        in:fly={{ y: 0, duration: 300 }}
+        animate:flip={{ duration: 300 }}
+        >
+
         <!-- Task Text -->
         <p class="font-semibold">{task.text}</p>
         
