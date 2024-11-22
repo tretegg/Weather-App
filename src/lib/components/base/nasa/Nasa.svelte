@@ -2,10 +2,22 @@
     import type { NasaApodResponse } from "$lib/types/nasa";
     import { onMount } from "svelte";
 
-    let nasa: NasaApodResponse;
+    let nasa: NasaApodResponse | undefined;
+    let error: NasaApodResponse["error"] | undefined 
+
+    const MESSAGE_OVERRIDES: {[key: string]: string} = {
+        "OVER_RATE_LIMIT": "Rate Limit Exceeded. Try again later."
+    }
 
     onMount(async () => {
+        error = undefined
+
         nasa = await (await fetch("/api/nasa")).json()
+
+        if (nasa?.error) {
+            error = nasa.error
+            nasa = undefined
+        }
     })
 </script>
 
@@ -13,7 +25,11 @@
     <div class="w-full h-full flex flex-col items-center justify-center px-4 font-mono ">
         <h2 class="w-full text-left text-xl font-bold">Nasa APOD</h2>
         <p class="text-left text-sm">{nasa.explanation}</p>
-        <img class="max-h-[60%] border mt-2" src="{nasa.url}" alt="Nasa APOD of the day.">
+        <img class="max-h-[60%] max-w-[90%] object-cover border mt-2" src="{nasa.url}" alt="Nasa APOD of the day.">
+    </div>
+{:else if error}
+    <div class="w-full h-full flex items-center justify-center">
+        <p class="font-mono text-red-400 text-lg">Error: {MESSAGE_OVERRIDES[error.code] ? MESSAGE_OVERRIDES[error.code] : error.message}</p>
     </div>
 {:else}
     <div class="w-full h-full flex items-center justify-center">

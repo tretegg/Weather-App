@@ -11,7 +11,7 @@ export async function getNasaData(fetch: any): Promise<NasaApodResponse | undefi
     }
 
     let apiURL = `https://api.nasa.gov/planetary/apod?api_key=${NASA_KEY}`;
-    console.log(apiURL);
+
     try {
         const response = await fetch(apiURL);
         const data = await response.json() as NasaApodResponse;

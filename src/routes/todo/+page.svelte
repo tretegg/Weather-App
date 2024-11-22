@@ -10,6 +10,7 @@
         details: string; // New property for additional information
     };
 
+    
     let taskInput: HTMLInputElement;
     let newTaskText: string = "";
     let isHandlingClick: boolean = false;
@@ -124,6 +125,7 @@
     <div
         class="task-container w-full border border-gray-300 rounded-md my-2 p-2 transition-all duration-300 hover:scale-105 relative shadow-lg hover:[box-shadow:0_0_20px_0px_rgba(255,255,255,0.5)]"
         in:fly={{ y: 50, duration: 300 }}
+        out:fade={{ duration: 300 }}
         animate:flip={{ duration: 300 }}>
 
         <!-- Task Text -->

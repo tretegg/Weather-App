@@ -4,12 +4,12 @@
     import Nasa from "$lib/components/base/nasa/Nasa.svelte"
 </script>
 
-<div class="flex h-full">
-    <div class="weather h-full w-[50%] border-r">
+<div class="flex h-full overflow-hidden">
+    <div class="weather h-full w-full lg:w-[50%] lg:border-r">
         <Weather/>
     </div>
 
-    <div class="h-full w-[50%]">
+    <div class="h-full hidden lg:block lg:w-[50%]">
         <Nasa/>
     </div>
 </div>

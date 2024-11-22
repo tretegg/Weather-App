@@ -6,5 +6,9 @@ export interface NasaApodResponse {
     service_version: string; // The version of the API used
     title: string; // The title of the APOD
     url: string; // The URL for the standard version of the image or video
-    copyright?: string; // The name of the copyright holder, if applicable (optional)
+    copyright?: string; // The name of the copyright holder, if applicable (optional),
+    error?: {
+        code: string; // The error code,
+        message: string
+    }
 }

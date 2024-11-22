@@ -75,14 +75,6 @@
     }
 
     const DAY_MAP = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
-
-    const CONDITION_MAP = {
-        1000: "Sunny",
-        1003: "PartlyCloudy",
-        1006: "Cloudy",
-        1009: "Overcast",
-
-    }
 </script>
 
 <svelte:window 
@@ -127,7 +119,7 @@
 
                     <div class="flex flex-col ml-auto pr-4">
                         <div class="flex items-center justify-end space-x-1 text-right">
-                            <p class="text-sm">Conditions are <strong class="text-base font-semibold">{forecast.current.condition.text.toLowerCase()}</strong>  </p>
+                            <p class="text-sm">Conditions are <strong class="font-semibold">{forecast.current.condition.text.toLowerCase()}</strong>  </p>
                             <!-- <img class=" w-[25px] h-[25px] aspect-square grayscale-100" src="{response.current.condition.icon}" alt="Wheather Icon"> -->
                         </div>
 
