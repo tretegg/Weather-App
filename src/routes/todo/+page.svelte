@@ -2,7 +2,7 @@
     import { onMount } from "svelte";
     import { flip } from "svelte/animate";
     import { writable } from 'svelte/store';
-    import { fade, fly } from "svelte/transition";
+    import { fly } from "svelte/transition";
 
     type Task = {
         id: string;
@@ -10,7 +10,7 @@
         details: string; // New property for additional information
     };
 
-    
+    let flip_time = 300;
     let taskInput: HTMLInputElement;
     let newTaskText: string = "";
     let isHandlingClick: boolean = false;
@@ -125,14 +125,13 @@
     <div
         class="task-container w-full border border-gray-300 rounded-md my-2 p-2 transition-all duration-300 hover:scale-105 relative shadow-lg hover:[box-shadow:0_0_20px_0px_rgba(255,255,255,0.5)]"
         in:fly={{ y: 50, duration: 300 }}
-        out:fade={{ duration: 300 }}
         animate:flip={{ duration: 300 }}>
 
         <!-- Task Text -->
         <p class="font-semibold">{task.text}</p>
         
         <!-- Task Details Input -->
-        <input type="text" 
+        <input type="text"  
             placeholder="Add more details..." 
             class="w-full mt-2 p-1 border border-gray-200 rounded focus:outline-none focus:border-gray-400 bg-black"
             value={task.details}
