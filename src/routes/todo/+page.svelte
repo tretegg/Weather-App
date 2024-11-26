@@ -3,6 +3,7 @@
     import { flip } from "svelte/animate";
     import { writable } from 'svelte/store';
     import { fly } from "svelte/transition";
+    import Particles from "$lib/components/particles.svelte";
 
     type Task = {
         id: string;
@@ -120,10 +121,10 @@
     </div>
 </div>
 
-<div class="w-full max-w-md mx-auto p-4">
+<div class="w-full h-[92%] max-w-md mx-auto flex flex-col items-center p-4 overflow-auto scrollbar-thin scrollbar-track-transparent scrollbar-thumb-neutral-800 scrollbar-thumb-rounded-md">
     {#each $storedTasks as task (task.id)}
     <div
-        class="task-container w-full border border-gray-300 rounded-md my-2 p-2 transition-all duration-300 hover:scale-105 relative shadow-lg hover:[box-shadow:0_0_20px_0px_rgba(255,255,255,0.5)]"
+        class="task-container w-[95%] border border-gray-300 rounded-md my-2 p-2 transition-all duration-300 hover:scale-105 relative shadow-lg hover:[box-shadow:0_0_20px_0px_rgba(255,255,255,0.5)]"
         in:fly={{ y: 50, duration: 300 }}
         animate:flip={{ duration: 300 }}>
 

@@ -16,7 +16,7 @@
     });
 </script>
 
-<div class="news">
+<div class="news overflow-auto h-[100%] scrollbar-thin scrollbar-track-transparent scrollbar-thumb-neutral-800">
     {#each articles as article}
         <div class="article flex flex-col items-center justify-center text-center">
             <!-- Title -->

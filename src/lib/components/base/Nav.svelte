@@ -9,7 +9,6 @@
         "Movies": "/movies",
         "Norris": "/norris",
         "To-do": "/todo",
-        "Sigfig": "/sigfig"
     }
 
     let currentPage = ""
@@ -39,3 +38,4 @@
         {/each}
     </div>
 </nav>
+

@@ -19,13 +19,23 @@ export default {
                 "rotate": {
                     '0%': {transform: 'rotate3d(0 0 0 0deg)'},
                     '100%': {transform: 'rotate3d(0 1 0 360deg)'}
+                },
+
+                meteor: {
+                    "0%": { transform: "rotate(215deg) translateX(0)", opacity: 1 },
+                    "70%": { opacity: 1 },
+                    "100%": {
+                      transform: "rotate(215deg) translateX(-500px)",
+                      opacity: 0,
+                    },
                 }
             },
 
             animation: {
                 "scrolling-gradient": 'scrolling-gradient-frames 15s ease infinite',
                 "fast-scrolling-gradient": 'scrolling-gradient-frames 5s ease infinite',
-                'rotate': 'rotate 3s linear forwards infinite'
+                'rotate': 'rotate 3s linear forwards infinite',
+                meteor: "meteor 5s linear infinite",
             },
         
             width: {

@@ -25,7 +25,13 @@
     }
 
     $: if (forecast && forecast.forecast) {
-        currentDay = forecast.forecast.forecastday[0]
+        // currentDay = forecast.forecast.forecastday[0]
+        currentDay = getTodayForecast(forecast.forecast.forecastday)
+    }
+
+    
+    function getTodayForecast(days: ForecastDay[]) {
+        return days.filter(day => new Date(day.date).getDay() === new Date().getDay())[0]
     }
 
     async function handleClick() {
@@ -58,13 +64,11 @@
            errorData = forecast.error
         }
 
-        console.log("forecast:", forecast)
-
-        
-
         loading = false
         firstLoad = true
         
+        console.log(forecast)
+
         form["city"].value = ""
         //getWeather(form, weatherDisplay);
         //getHourlyWeather(form, forecastDisplay);
@@ -119,7 +123,7 @@
 
                     <div class="flex flex-col ml-auto pr-4">
                         <div class="flex items-center justify-end space-x-1 text-right">
-                            <p class="text-sm">Conditions are <strong class="font-semibold">{forecast.current.condition.text.toLowerCase()}</strong>  </p>
+                            <p class="text-sm">Current conditions are <strong class="font-semibold">{forecast.current.condition.text.toLowerCase()}</strong>  </p>
                             <!-- <img class=" w-[25px] h-[25px] aspect-square grayscale-100" src="{response.current.condition.icon}" alt="Wheather Icon"> -->
                         </div>
 
