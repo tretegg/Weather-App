@@ -1,6 +1,6 @@
 <script lang="ts">
     import { flip } from "svelte/animate";
-    import { fade, fly } from "svelte/transition";
+    import { blur, fade, fly } from "svelte/transition";
 
     let data: ChuckNorrisJoke;
     let firstLoad: boolean = false;

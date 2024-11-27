@@ -5,8 +5,6 @@ let storage: NasaApodResponse
 const DEBOUNCE = (1000 * 60 * 30) // 30 minutes
 let lastRequest = 0
 
-console.log("Nasa.ts reloaded")
-
 export async function getNasaData(fetch: any): Promise<NasaApodResponse | undefined> {
     if (Date.now() - lastRequest < DEBOUNCE) {
         return storage

@@ -8,17 +8,20 @@
     }
 
     export let number = 10;
+    
     let meteorStyles: any = [];
+
     let changeMeteors = (num: number) => {
       meteorStyles = [];
       const styles = [...new Array(num)].map(() => ({
-        top: -20,
-        left: Math.floor(Math.random() * 700) + "px",
+        top: 0,
+        left: Math.floor(Math.random() * 400) + "px",
         animationDelay: Math.random() * 1 + 0.2 + "s",
         animationDuration: Math.floor(Math.random() * 8 + 2.9) + "s",
       }));
       meteorStyles = styles;
     };
+
     onMount(() => {
       changeMeteors(number);
     });

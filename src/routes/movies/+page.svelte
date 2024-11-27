@@ -2,6 +2,8 @@
     import type { OMDBMovieDetail, OMDBSearchResponse, OMDBSearchResult } from "$lib/types/movies";
     import { onMount } from "svelte";
     import { fade, fly } from "svelte/transition";
+    import Blurfade from "$lib/components/blurfade.svelte";
+    import Borderbeam from "$lib/components/borderbeam.svelte";
 
     let form: HTMLFormElement
     let data: OMDBMovieDetail
@@ -50,9 +52,12 @@
 
 <div class='px-2 py-1 h-[92%]'>
     {#if loading || !firstLoad}
-        <p class:loading-bar={loading} in:fade={{duration: 300}}>{loading ? "Loading..." : "Enter Movie Title."}</p>
+    <Blurfade delay={0.25}>
+        <p class:loading-bar={loading}>{loading ? "Loading..." : "Enter Movie Title."}</p>
+    </Blurfade>
     {:else if data.Response === "True"}
-        <div in:fade={{duration: 300}}>
+    <Blurfade delay={0.5}>
+        <div>
             <p class="text-4xl font-bold mb-1">{data.Title}</p>
             <p class="text-gray-300 mb-1">{data.Released} &middot; {data.Rated} &middot; {data.Runtime}</p>
             <img src="{data.Poster}" alt="{data.Title} Poster" class="border-2 rounded-lg border-gray-600 mb-2">
@@ -67,10 +72,14 @@
                 <p>{data.imdbRating}<span class="text-gray-400">/10</span></p>
             </div>
         </div>
+    </Blurfade>
     {:else if data.Response === "False"}
-        <p in:fade={{duration: 300}}>{data.Error}</p>
+    <Blurfade delay={0.25}>
+        <p>{data.Error}</p>
+    </Blurfade>
     {/if}
 </div>
+
 
 
 <style lang="postcss">

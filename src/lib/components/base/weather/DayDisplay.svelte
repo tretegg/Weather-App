@@ -97,7 +97,7 @@
         
     </div>
 
-    <div class="w-full h-full absolute">
-        <Meteors number={100}/>
+    <div class="w-full h-full absolute overflow-clip">
+        <Meteors number={30}/>
     </div>
 </div>

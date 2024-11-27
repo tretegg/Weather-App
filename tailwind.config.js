@@ -28,7 +28,12 @@ export default {
                       transform: "rotate(215deg) translateX(-500px)",
                       opacity: 0,
                     },
-                }
+                },
+                "border-beam": {
+                    "100%": {
+                        "offset-distance": "100%",
+                    },
+                },
             },
 
             animation: {
@@ -36,6 +41,7 @@ export default {
                 "fast-scrolling-gradient": 'scrolling-gradient-frames 5s ease infinite',
                 'rotate': 'rotate 3s linear forwards infinite',
                 meteor: "meteor 5s linear infinite",
+                "border-beam": "border-beam calc(var(--duration)*1s) infinite linear",
             },
         
             width: {

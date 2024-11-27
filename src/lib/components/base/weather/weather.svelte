@@ -67,7 +67,7 @@
         loading = false
         firstLoad = true
         
-        console.log(forecast)
+        // console.log(forecast)
 
         form["city"].value = ""
         //getWeather(form, weatherDisplay);
