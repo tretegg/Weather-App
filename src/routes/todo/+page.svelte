@@ -4,7 +4,7 @@
     import { writable } from 'svelte/store';
     import { fly } from "svelte/transition";
     import Borderbeam from "$lib/components/borderbeam.svelte";
-    import Blurfade from "$lib/components/blurfade.svelte";
+    import Dock from "$lib/components/docktest.svelte";
 
     type Task = {
         id: string;
