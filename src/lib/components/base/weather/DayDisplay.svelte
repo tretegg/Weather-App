@@ -6,7 +6,7 @@
     export let day: ForecastDay;
     export let dayName: string
 
-    let hour = day.hour[new Date().getHours()]
+    $: hour = day.hour[new Date().getHours()]
 
     $: date = new Date(day.date)
 

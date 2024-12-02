@@ -33,7 +33,7 @@
     let widthSync = useTransform(
       distanceCalc,
       [-distance, 0, distance],
-      [38, magnification, 38]
+      [45, magnification, 45]
     );
   
     let width = useSpring(widthSync, {
@@ -43,7 +43,7 @@
     });
   
     let iconClass = cn(
-      "flex aspect-square cursor-pointer items-center justify-center rounded-full",
+      "flex aspect-square cursor-pointer items-center justify-center rounded-full pt-2 translate-y-0.5",
       className
     );
 </script>

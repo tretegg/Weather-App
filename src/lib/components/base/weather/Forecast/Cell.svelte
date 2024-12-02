@@ -13,7 +13,7 @@
 
 </script>
 
-<button on:click={()=>{dispatch("dayChange", day)}} class=" w-20 h-28 border flex flex-col relative">
+<button on:click={()=>{dispatch("dayChange", day)}} class="hover:scale-110 active:scale-105 transitions w-20 h-28 border flex flex-col relative">
 
     <div class="w-full h-3/4 border-b px-2">
         <img class="w-full h-full object-fill invert" src="/svgs/{condition}.svg" alt="{day.day.condition.text}">

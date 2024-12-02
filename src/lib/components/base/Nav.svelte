@@ -32,10 +32,10 @@
     </ul> -->
 
     <p class="font-bold text-xl font-mono hidden md:block">Weather & Etc.</p>
-    <div class="md:ml-auto flex items-center justify-center space-x-2">
+    <!-- <div class="md:ml-auto flex items-center justify-center space-x-2">
         {#each Object.entries(pages) as page}
             <Button current={currentPage === page[1]} name={page[0]} href={page[1]}/>
         {/each}
-    </div>
+    </div> -->
 </nav>
 

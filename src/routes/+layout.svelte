@@ -4,8 +4,20 @@
     import { onNavigate } from '$app/navigation';
     import Particles from "$lib/components/particles.svelte";
     import Dock from "$lib/components/docktest.svelte"
+    import { onMount } from "svelte";
+
+    let currentPage: string
+
+    onMount(()=>{
+        currentPage = window.location.pathname
+    })
 
     onNavigate((navigation) => {
+        if (!navigation.to) return
+        if (navigation.to.url.pathname === currentPage) return
+
+        currentPage = navigation.to.url.pathname
+
 	    if (!document.startViewTransition) return;
 
 	    return new Promise<void>((resolve) => {
@@ -28,6 +40,6 @@
     <Particles className="absolute inset-0" refresh={true} />
 </div>
 
-<div class="fixed bottom-0 left-1/2 transform -translate-x-1/2 z-[9999] mb-2">
+<div class="fixed bottom-0 left-1/2 -translate-x-1/2 z-[9999] mb-2">
     <Dock />
 </div>

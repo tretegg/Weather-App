@@ -5,6 +5,7 @@
     import { fly } from "svelte/transition";
     import Borderbeam from "$lib/components/borderbeam.svelte";
     import Dock from "$lib/components/docktest.svelte";
+    import NewInput from "$lib/components/base/newInput.svelte";
 
     type Task = {
         id: string;
@@ -103,24 +104,23 @@
 />
 
 <div class="w-full h-[8%] border-b flex items-center justify-center space-x-8">
-    <div class="flex space-x-4">
-        <div class="flex items-center justify-center">
-            <p class="text-sm pr-2">Add a task: </p>
-            <input 
-                placeholder="e.g Homework" 
-                class="!outline-none text-black pl-1" 
-                bind:this={taskInput} 
-                bind:value={newTaskText}
-                type="text">
+    <div class="flex space-x-4 items-center">
+        <p class=" pr-2">Add a task: </p>
+        <!-- Input Field Wrapper -->
+        <div class="relative group">
+            <!-- Input Field -->
+            <NewInput placeholder="e.g Homework" bind:element={taskInput} bind:value={newTaskText}/>
         </div>
+        <!-- Button -->
         <button 
             class:isHandlingClick 
-            class="px-2 py-1 border transitions duration-300 hover:scale-110 active:scale-105" 
+            class="px-2 py-1 border transition duration-300 hover:scale-110 active:scale-105" 
             on:click={handleClick}>
             Add
         </button>
     </div>
 </div>
+
 
 <div class="w-full h-[92%] max-w-md mx-auto flex flex-col items-center p-4 overflow-auto scrollbar-thin scrollbar-track-transparent scrollbar-thumb-neutral-800 scrollbar-thumb-rounded-md overflow-x-hidden">
     {#each $storedTasks as task (task.id)}

@@ -1,5 +1,6 @@
 <script lang="ts">
     import type { ForecastDay, WeatherApiError, WeatherAPIResponse, WeatherForecastAPIResponse } from "$lib/types/weather";
+    import NewInput from "../newInput.svelte";
     import DayDisplay from "./DayDisplay.svelte";
     import Forecast from "./Forecast.svelte";
     import Radar from "./Radar.svelte";
@@ -34,6 +35,8 @@
         return days.filter(day => new Date(day.date).getDay() === new Date().getDay())[0]
     }
 
+    let value: string
+
     async function handleClick() {
         loading = true
         error = false
@@ -53,7 +56,7 @@
 
         forecast = (await (await fetch("/api/weather/forecast", {
            headers: {
-               "X-city": form["city"].value as string
+               "X-city": value
            }
         })).json() as WeatherForecastAPIResponse)
         
@@ -66,10 +69,9 @@
 
         loading = false
         firstLoad = true
-        
-        // console.log(forecast)
 
-        form["city"].value = ""
+        value = ""
+        
         //getWeather(form, weatherDisplay);
         //getHourlyWeather(form, forecastDisplay);
     }
@@ -88,14 +90,14 @@
 />
 
 <div class="w-full h-[8%] border-b flex items-center justify-start px-2">
-    <form bind:this={form} name="weatherForm" class="flex relative">
+    <div class="flex items-center">
         <label class="pr-2" for="city">City:</label>
-        <input class="text-black px-1 !outline-none" type="text" id="city" name="city" placeholder="e.g London"><br>
-        
+        <NewInput bind:value placeholder="e.g London"/>
+        <!-- <input class="text-black px-1 !outline-none" type="text" id="city" name="city" placeholder="e.g London"><br> -->
+    </div>     
         <!-- <button on:click={()=>{form["city"].value = ""}} class="hover:text-black transitions duration-300 ease-in-out absolute scale-x-125 left-[93%] text-gray-400">
             X
         </button> -->
-    </form> 
 
     <button disabled={loading} class:loading={loading} class="ml-auto px-2 py-1 border border-white transitions duration-300 hover:scale-110 active:scale-105" on:click={handleClick}>Refresh Weather</button>
 

@@ -3,17 +3,20 @@
     import { inview } from "svelte-inview";
     import { type ClassValue, clsx } from "clsx";
     import { twMerge } from "tailwind-merge";
+    import {v4 as uuidv4} from 'uuid';
 
     export function cn(...inputs: ClassValue[]) {
         return twMerge(clsx(inputs));
     }
+
+    
 
     export let duration = 0.4;
     export let delay = 0;
     export let yOffset = 6;
     export let inViewMargin = "-50px";
     export let blur = "6px";
-    export let id = crypto.randomUUID().slice(0, 8);
+    export let id = uuidv4().slice(0, 8);
     export let once = false;
     let defaultVariants = {
       hidden: { opacity: 0, y: yOffset, filter: `blur(${blur})` },

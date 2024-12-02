@@ -1,9 +1,9 @@
 <script lang='ts'>
     import type { OMDBMovieDetail, OMDBSearchResponse, OMDBSearchResult } from "$lib/types/movies";
-    import { onMount } from "svelte";
     import { fade, fly } from "svelte/transition";
     import Blurfade from "$lib/components/blurfade.svelte";
     import Borderbeam from "$lib/components/borderbeam.svelte";
+    import NewInput from "$lib/components/base/newInput.svelte";
 
     let form: HTMLFormElement
     let data: OMDBMovieDetail
@@ -20,8 +20,6 @@
                 "X-movie": movieTitle.value
             }
         })).json() as OMDBMovieDetail
-
-        console.log(data) 
 
         loading = false
         firstLoad = true
@@ -42,7 +40,7 @@
     <div class="flex space-x-4">
         <div class="flex items-center justify-center">
             <p class="tex-sm pr-2">Search Movies:</p>
-            <input placeholder="e.g The Matrix" class="!outline-none text-black pl-1" bind:this={movieTitle} type="text">
+            <NewInput placeholder="e.g The Matrix" bind:element={movieTitle}></NewInput>
         </div>
 
         <button class:loading class="px-2 py-1 border transitions duration-300 hover:scale-110 active:scale-105" on:click={handleClick}>Search</button>
@@ -74,9 +72,9 @@
         </div>
     </Blurfade>
     {:else if data.Response === "False"}
-    <Blurfade delay={0.25}>
-        <p>{data.Error}</p>
-    </Blurfade>
+        <Blurfade delay={0.25}>
+            <p>{data.Error}</p>
+        </Blurfade>
     {/if}
 </div>
 

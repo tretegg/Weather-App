@@ -7,7 +7,7 @@
 
     async function getNews() {
         news = await (await fetch("/api/news")).json()
-        console.log(news)
+
         articles = news.data.splice(0, 3) // Limit to 3
     }
 

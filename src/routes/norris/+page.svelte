@@ -40,7 +40,7 @@
     </button>
 </div>
 
-<div class="px-2 py-1 h-[92%] space-y-2">
+<div class="px-2 pb-[5rem] py-1 h-[92%] space-y-2 overflow-auto scrollbar-thin scrollbar-track-transparent scrollbar-thumb-neutral-800 scrollbar-thumb-rounded-md">
     {#each savedJokes as joke (joke)}
         <div class="flex items-center border-2 rounded-lg border-gray-600 p-2 shadow"
             animate:flip={{ duration: 200 }}
