@@ -34,23 +34,23 @@
     $: readableDate = `${monthMap[date.getMonth()]} ${date.getDate()}${getExtension(date.getDate())}, ${date.getFullYear()}`
 </script>
 
-<div class="news overflow-auto h-[100%] scrollbar-thin scrollbar-track-transparent relative scrollbar-thumb-neutral-800 px-24">
+<div class="news overflow-auto h-[100%] scrollbar-thin scrollbar-track-transparent relative scrollbar-thumb-neutral-800 px-0 md:px-12 lg:px-24">
     {#if !news}
     <div class="w-full h-full absolute flex items-center justify-center">
         <p class="font-mono loading-bar">Loading...</p>
     </div>
     {:else}
-        <div class="w-full h-[10%] flex items-center border-b mb-4 px-2">
+        <div class="w-full h-[10%] flex items-center border-b mb-4 px-4 md:px-2">
             <h1 class="h-fit font-bold text-2xl font-mono">Recent News Stories</h1>
             <p class="ml-auto font-mono font-semibold">as of {readableDate}</p>
         </div>
 
         <div class="flex flex-col items-center space-y-8">
             {#each articles as article}
-                <div class="article flex items-center justify-center text-center">
-                    <div class="w-[40%] h-full flex items-center justify-center">
+                <div class="article flex flex-col md:flex-row items-center justify-center text-center">
+                    <div class="w-[90%] md:w-[40%] h-full flex items-center justify-center">
                         {#if article.image_url}
-                            <a href={article.url} class="w-[90%] h-[50%] block">
+                            <a href={article.url} class="w-full md:w-[90%] h-[50%] block">
                                 <img src={article.image_url} alt="News thumbnail" 
                                      class="rounded-lg h-full w-full mb-2 
                                      transition-all duration-300 hover:scale-105
@@ -59,13 +59,13 @@
                         {/if}
                     </div>
 
-                    <div class="w-[60%] h-full flex items-center flex-col">
+                    <div class="w-[90%] md:w-[60%] h-full flex items-center flex-col">
                         <!-- Title -->
                         <a href={article.url} 
-                           class="hover:underline font-bold text-lg mb-1 mt-1">{article.title}</a>
+                           class="hover:underline font-bold text-lg mb-1 mt-1 text-left md:text-center">{article.title}</a>
 
                         <!-- Description -->
-                        <p class="mb-2 max-w-lg text">{article.description}</p>
+                        <p class="mb-2 max-w-lg text-left md:text-center">{article.description}</p>
                     </div>
 
                     <!-- Image -->
@@ -74,7 +74,7 @@
         </div>
 
         <div class="w-full h-[8%] font-mono flex items-center justify-center">
-            <p>Powered By <a href="https://the-news-api.com/" class="hover:underline text-blue-400">The News Api</a></p>
+            <!-- <p>Powered By <a href="https://the-news-api.com/" class="hover:underline text-blue-400">The News Api</a></p> -->
         </div>
     {/if}
     
