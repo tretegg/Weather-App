@@ -1,1 +1,1 @@
-website with stuff in it !!! made with svelte & talwindcss
+website with stuff in it !!! made with svelte & tailwindcss
