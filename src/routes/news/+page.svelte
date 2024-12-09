@@ -34,7 +34,7 @@
     $: readableDate = `${monthMap[date.getMonth()]} ${date.getDate()}${getExtension(date.getDate())}, ${date.getFullYear()}`
 </script>
 
-<div class="news overflow-auto h-[100%] scrollbar-thin scrollbar-track-transparent relative scrollbar-thumb-neutral-800 px-0 md:px-12 lg:px-24">
+<div class="news overflow-auto overflow-x-hidden h-[100%] scrollbar-thin scrollbar-track-transparent relative scrollbar-thumb-neutral-800 px-0 md:px-12 lg:px-24">
     {#if !news}
     <div class="w-full h-full absolute flex items-center justify-center">
         <p class="font-mono loading-bar">Loading...</p>

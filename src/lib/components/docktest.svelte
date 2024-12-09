@@ -57,6 +57,15 @@
     >
       <img src="/svgs/movie.svg" alt="movies" width="20" height="20" class="svg-white" />
     </DockIcon>
+    <DockIcon
+      href="/minesweeper"
+      {magnification}
+      {distance}
+      {mouseX}
+      class="bg-black/10 dark:bg-white/5 p-3"
+    >
+      <img src="/svgs/bomb.svg" alt="minesweeper" width="20" height="20" class="svg-white" />
+    </DockIcon>
     <!-- <DockIcon
       href="https://github.com/tretegg/Weather-App"
       {magnification}

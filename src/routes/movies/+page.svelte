@@ -48,7 +48,7 @@
  
 </div>
 
-<div class='px-2 py-1 mb-12 h-[92%] max-h-[92%] pb-[18%] sm:pb-[15%] lg:pb-[7%] overflow-auto scrollbar-thin scrollbar-track-transparent scrollbar-thumb-neutral-800 scrollable'>
+<div class='px-2 py-1 mb-12 h-[92%] max-h-[92%] pb-[18%] sm:pb-[15%] lg:pb-[7%] overflow-auto scrollbar-thin scrollbar-track-transparent scrollbar-thumb-neutral-800 scrollable '>
     {#if loading || !firstLoad}
     <Blurfade delay={0.25}>
         <p class:loading-bar={loading}>{loading ? "Loading..." : "Enter Movie Title."}</p>
@@ -64,7 +64,7 @@
                     <p class="border-2 rounded-full px-2 border-gray-600">{genre}</p>
                 {/each}
             </div>
-            <p class="w-[90%] lg:w-[40%] text-center">{data.Plot}{data.Plot}{data.Plot}{data.Plot}</p>
+            <p class="w-[90%] lg:w-[40%] text-center">{data.Plot}</p>
             <div class="flex items-center"> 
                 <img alt="Star icon" src="/imgs/star.png" class="w-[35px] h-[35px]">
                 <p>{data.imdbRating}<span class="text-gray-400">/10</span></p>
