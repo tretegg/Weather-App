@@ -15,9 +15,15 @@
 		flagCount = 0;
 		timeElapsed = 0;
 	};
+
+	function time() {
+		timeElapsed++;
+	}
+
+	setInterval(time, 1000)
 </script>
 
-<main class="min-h-screen bg-black text-white p-4 flex flex-col items-center justify-center">
+<main class="h-max bg-black text-white p-4 flex flex-col items-center justify-center">
 	<div class="max-w-md w-full space-y-4">
 		<Header {timeElapsed} {flagCount} />
 
