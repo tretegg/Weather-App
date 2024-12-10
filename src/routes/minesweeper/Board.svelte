@@ -7,27 +7,29 @@
 
 	// Static board for UI demonstration
 	const BOARD_SIZE = 8;
-	let  board = Array(BOARD_SIZE).fill(Array(BOARD_SIZE).fill(0));
+	let board = $state(Array.from({ length: BOARD_SIZE }, () => Array(BOARD_SIZE).fill(0)));
 	const MINE_COUNT = 10;
 
 	onMount(() => {
 		generateMines();
-		console.table(board)
+		console.table(board);
 	});
 
-	function generateMines () {
+	function generateMines() {
+		const newBoard = [...board]; // Create a shallow copy of the board
 		for (let i = 0; i < MINE_COUNT; i++) {
 			let done = false;
 			while (!done) {
-				let x = getRandomInt(8);
-				let y = getRandomInt(8);
+				let x = getRandomInt(BOARD_SIZE);
+				let y = getRandomInt(BOARD_SIZE);
 
-				if (board[x][y] != 1) {
-					board[x][y] = 1;
+				if (newBoard[x][y] != 1) {
+					newBoard[x][y] = 1;
 					done = true;
-				} 
+				}
 			}
 		}
+		board = newBoard; // Reassign to trigger reactivity
 	}
 
 	function getRandomInt(max: number) {
@@ -36,9 +38,5 @@
 </script>
 
 <div class="grid grid-cols-8 gap-1 gap-y-3 bg-transparent rounded">
-	{#each board as row, i}
-		{#each row as _, j}
-			<Cell />
-		{/each}
-	{/each}
+	<Cell board={board}/>
 </div>
