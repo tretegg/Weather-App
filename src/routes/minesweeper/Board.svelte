@@ -8,7 +8,7 @@
 	// Static board for UI demonstration
 	const BOARD_SIZE = 8;
 	let board = $state(Array.from({ length: BOARD_SIZE }, () => Array(BOARD_SIZE).fill(0)));
-	const MINE_COUNT = 10;
+	const MINE_COUNT = 3;
 
 	onMount(() => {
 		generateMines();

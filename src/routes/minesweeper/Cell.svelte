@@ -33,7 +33,7 @@
 	onMount(() => {
 	})
 
-	function getNearBombs(row: number, col: number) {
+	function getNearBombs(col: number, row: number) {
 		let nearBombs = 0;
 
 		// Loop through the 3x3 grid around the cell
@@ -60,75 +60,87 @@
 	}
 
 	const handleClick = (row: number, col: number) => {
-		console.log("Cell clicked");
+		console.log(row, col);
 		if (board[row][col] === 1) {
 			console.log("Game Over");
-			revealCell(row, col);
-		} else if (board[row][col] === 0) {
-			revealCell(row, col);
-			// floodFill(row, col);
+			revealCell(col, row);
+		} else if (board[row][col] === 0) { 
+			floodFill(row, col);
 		}
 	};
 
-	function revealCell(x: number, y: number) {
-        const cell = hiddenCells.find(c => c.x === x && c.y === y);
+	function revealCell(col: number, row: number) {
+        const cell = hiddenCells.find(c => c.x === col && c.y === row);
         if (cell) {
             cell.hidden = false;
         }
     }
 
-	function floodFill(x: number, y: number) {
-		const cell = hiddenCells.find(c => c.x === x && c.y === y);
+	function floodFill(row: number, col: number) {
+		console.log(row, col);
+		// Check bounds
+		if (row < 0 || row >= board.length || col < 0 || col >= board[0].length) return;
 
-		// Loop through the 3x3 grid around the cell
-		for (let i = -1; i <= 1; i++) {
-			for (let j = -1; j <= 1; j++) {
-				const neighborRow = x + i;
-				const neighborCol = y + j;
+		// Get the current cell
+		const cell = hiddenCells.find(c => c.y === row && c.x === col);
 
-				// Check if the neighbor is within bounds
-				if (
-					neighborRow >= 0 &&
-					neighborRow < board.length &&
-					neighborCol >= 0 &&
-					neighborCol < board[0].length
-				) {
-					if (getNearBombs(neighborRow, neighborCol) == 0 && board[neighborRow][neighborCol] != 1) {
-						revealCell(neighborRow, neighborCol);
-						floodFill(neighborRow, neighborCol);
-					} else if (getNearBombs(neighborRow, neighborCol) > 0 && board[neighborRow][neighborCol] != 1) {
-						revealCell(neighborRow, neighborCol);
-					} else if (board[neighborRow][neighborCol] === 1 || i && j == 0) {
-						// ignore bombs and center cell
-					}
-				}
-			}
+		// Skip if already revealed or flagged
+		if (!cell || !cell.hidden || cell.flagged) {
+			console.log(cell);
+			return;
 		}
+
+		// Reveal the current cell
+		cell.hidden = false;
+
+		// If the cell is near a bomb, stop recursion
+		if (getNearBombs(row, col) > 0) {
+			if (board[row + 1][col] == 0 && getNearBombs(row + 1, col) == 0) {
+				floodFill(row + 1, col);
+			}
+			if (board[row - 1][col] == 0 && getNearBombs(row - 1, col) == 0) {
+				floodFill(row - 1, col);
+			}
+			if (board[row][col + 1] == 0 && getNearBombs(row, col + 1) == 0) {
+				floodFill(row, col + 1);
+			}
+			if (board[row][col - 1] == 0 && getNearBombs(row, col - 1) == 0) {
+				floodFill(row, col - 1);
+			}
+			return;
+		}
+
+		// Recur for all 4 neighboring cells
+		floodFill(row + 1, col); // Down
+		floodFill(row - 1, col); // Up
+		floodFill(row, col + 1); // Right
+		floodFill(row, col - 1); // Left
 	}
 
 
-	const flagCell = (event: MouseEvent, x:number, y:number) => {
+
+	const flagCell = (event: MouseEvent, row:number, col:number) => {
         event.preventDefault();
 
-		const cell = hiddenCells.find(c => c.x === x && c.y === y);
-		if (cell) {
+		const cell = hiddenCells.find(c => c.x === col && c.y === row);
+		if (cell && cell.hidden) {
 			cell.flagged = !cell.flagged;
-			revealCell(x, y);
+			revealCell(row, col);
 		}
     };
 
 </script>
 
-{#each board as row, rowIndex}
-    {#each row as cell, colIndex}
+{#each board as col, colIndex}
+    {#each col as cell, rowIndex}
         <!-- svelte-ignore a11y_consider_explicit_label -->
         <button
             class="w-10 h-10 flex items-center rounded-md justify-center border border-white/20 text-sm font-bold bg-white/5 hover:bg-white/10"
             onclick={() => handleClick(rowIndex, colIndex)}
 			oncontextmenu={(event) => flagCell(event, rowIndex, colIndex)}
         >
-			{#if !hiddenCells.find(cell => cell.x === rowIndex && cell.y === colIndex)?.hidden}
-                {#if hiddenCells.find(cell => cell.x === rowIndex && cell.y === colIndex)?.flagged == true}
+			{#if !hiddenCells.find(cell => cell.x === colIndex && cell.y === rowIndex)?.hidden}
+                {#if hiddenCells.find(cell => cell.x === colIndex && cell.y === rowIndex)?.flagged == true}
 					<img
                         src="/svgs/flag.svg"
                         alt="minesweeper"
