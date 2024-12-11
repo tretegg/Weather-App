@@ -25,7 +25,8 @@
     <div class="w-full h-full flex flex-col items-center justify-center px-4 font-mono ">
         <h2 class="w-full text-left text-xl font-bold">Nasa APOD</h2>
         <p class="text-left text-sm">{nasa.explanation}</p>
-        <img class="max-h-[60%] max-w-[90%] object-cover border mt-2" src="{nasa.url}" alt="Nasa APOD of the day.">
+        <img class="max-h-[60%] max-w-[90%] object-cover border mt-2 transition-all duration-300 hover:scale-[1.02] shadow-lg hover:[box-shadow:0_0_20px_0px_rgba(255,255,255,0.5)]"
+             src="{nasa.url}" alt="Nasa APOD of the day.">
     </div>
 {:else if error}
     <div class="w-full h-full flex items-center justify-center">
