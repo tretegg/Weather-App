@@ -51,7 +51,7 @@
 <div class='px-2 py-1 mb-12 h-[92%] max-h-[92%] pb-[18%] sm:pb-[15%] lg:pb-[7%] overflow-auto scrollbar-thin scrollbar-track-transparent scrollbar-thumb-neutral-800 scrollable '>
     {#if loading || !firstLoad}
     <Blurfade delay={0.25}>
-        <p class:loading-bar={loading}>{loading ? "Loading..." : "Enter Movie Title."}</p>
+        <p class:loading-bar={loading} class="flex items-center justify-center">{loading ? "Loading..." : "Enter Movie Title."}</p>
     </Blurfade>
     {:else if data.Response === "True"}
     <Blurfade delay={0.5}>
