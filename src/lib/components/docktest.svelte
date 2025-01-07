@@ -57,7 +57,7 @@
     >
       <img src="/svgs/movie.svg" alt="movies" width="20" height="20" class="svg-white" />
     </DockIcon>
-    <!-- <DockIcon
+    <DockIcon
       href="https://github.com/tretegg/Weather-App"
       {magnification}
       {distance}
@@ -65,7 +65,7 @@
       class="bg-black/10 dark:bg-white/5 p-3"
     >
       <img src="/svgs/github.svg" alt="github" width="20" height="20" class="svg-white" />
-    </DockIcon> -->
+    </DockIcon> 
   </Dock>
 
 </div>
