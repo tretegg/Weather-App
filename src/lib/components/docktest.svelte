@@ -31,15 +31,6 @@
       <img src="/svgs/news.svg" alt="news" width="20" height="20" class="svg-white" />
     </DockIcon>
     <DockIcon
-      href="/norris"
-      {magnification}
-      {distance}
-      {mouseX}
-      class="bg-black/10 dark:bg-white/5 p-3"
-    >
-      <img src="/svgs/norris.svg" alt="norris" width="20" height="20" class="svg-white" />
-    </DockIcon>
-    <DockIcon
       href="/todo"
       {magnification}
       {distance}
