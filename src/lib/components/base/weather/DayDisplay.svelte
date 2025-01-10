@@ -96,8 +96,4 @@
         </div>
         
     </div>
-
-    <div class="w-full h-full absolute overflow-clip">
-        <Meteors number={30}/>
-    </div>
 </div>
