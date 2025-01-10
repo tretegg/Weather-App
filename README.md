@@ -6,10 +6,12 @@ Type a location to receive local weather data
 
 ## Nasa Apod
 Nasa picture of the day displayed on the landing page
+</br>
 Not visible on mobile
 
 ## News
 Retrives 3 recent news articles
+</br>
 No particular order or theme
 
 ## Todo list
