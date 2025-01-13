@@ -5,6 +5,7 @@
     import Particles from "$lib/components/particles.svelte";
     import Dock from "$lib/components/docktest.svelte"
     import { onMount } from "svelte";
+    import { injectAnalytics } from '@vercel/analytics/sveltekit'
 
     let currentPage: string
 
@@ -27,6 +28,8 @@
         	});
 	    });
     });
+
+    injectAnalytics()
 
 </script>
 
